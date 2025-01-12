@@ -1,0 +1,22 @@
+.floating-icons-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.floating-icon {
+  will-change: transform;
+}
+
+.floating-icon-svg {
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-icon {
+    animation: none !important;
+    transform: none !important;
+  }
+}

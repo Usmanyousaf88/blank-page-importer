@@ -1,0 +1,37 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[dev]
+  command = "npm run dev"
+  port = 3000
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "default-src 'self' https://intellisync-server-fbc47e09b67b.herokuapp.com https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://intellisync-server-fbc47e09b67b.herokuapp.com; style-src 'self' 'unsafe-inline' https://intellisync-server-fbc47e09b67b.herokuapp.com https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://intellisync-server-fbc47e09b67b.herokuapp.com https://fonts.gstatic.com; connect-src 'self' https://intellisync-server-fbc47e09b67b.herokuapp.com https://fonts.googleapis.com https://fonts.gstatic.com https:;"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+
+[[headers]]
+  for = "https://intellisync-server-fbc47e09b67b.herokuapp.com/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+    Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept"
+    Access-Control-Allow-Credentials = "true"
+
+[[headers]]
+  for = "*.woff2"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Cache-Control = "public, max-age=31536000, immutable"
