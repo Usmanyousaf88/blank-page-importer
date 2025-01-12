@@ -1,3 +1,4 @@
+build:dev": "vite build --mode development
 import { SitemapStream, streamToPromise } from 'sitemap';
 import { Readable } from 'stream';
 import fs from 'fs';
