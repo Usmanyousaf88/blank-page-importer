@@ -2,18 +2,28 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
+import { componentTagger } from "lovable-tagger"
 
-// https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
+  server: {
+    host: "::",
+    port: 8080,
+    headers: {
+      'X-Frame-Options': 'SAMEORIGIN',
+      'X-Content-Type-Options': 'nosniff',
+      'X-XSS-Protection': '1; mode=block',
+    },
+  },
   plugins: [
     react(),
+    mode === 'development' && componentTagger(),
     visualizer({
       filename: './dist/stats.html',
       open: false,
       gzipSize: true,
       brotliSize: true
     })
-  ],
+  ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src")
@@ -31,11 +41,4 @@ export default defineConfig({
     },
     chunkSizeWarningLimit: 1000
   },
-  server: {
-    headers: {
-      'X-Frame-Options': 'SAMEORIGIN',
-      'X-Content-Type-Options': 'nosniff',
-      'X-XSS-Protection': '1; mode=block',
-    },
-  },
-})
+}));
